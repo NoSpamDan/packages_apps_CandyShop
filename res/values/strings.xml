@@ -806,8 +806,30 @@
     <string name="theme_title">Theme settings</string>
     <string name="theme_summary">Set up theme options</string>
     <string name="accent_color">Accent color</string>
-
     <string name="system_colors">Colors</string>
+    <string name="base_theme">Base theme color</string>
 
+    <!-- System theme -->
+    <string name="substratum_overlays_installed_title">Candy sweetness is unavailable because a Substratum overlay is installed. Please uninstall all overlays targeting Android System to proceed.</string>
+    <string name="systemui_theme_black">Black Licorice</string>
 
+    <!-- QS tile styles -->
+    <string name="qs_tile_style_title">QS tile style</string>
+    <string name="qs_tile_style_default">Default</string>
+    <string name="qs_tile_style_square">Square</string>
+    <string name="qs_tile_style_squircle">Squircle</string>
+    <string name="qs_tile_style_squircle_trim">Squircle with trim</string>
+    <string name="qs_tile_style_tear_drop">Tear drop</string>
+    <string name="qs_tile_style_hexagon">Hexagon</string>
+    <string name="qs_tile_style_hexicon">Hexicon</string>
+    <string name="qs_tile_style_circle_trim">Squircle with trim</string>
+
+    <!-- Name of setting for switching the SystemUI theme [CHAR LIMIT=60] -->
+    <string name="device_theme">Candy sweetener</string>
+    <!-- When SystemUI theme is chosen based on the wallpaper color [CHAR LIMIT=60] -->
+    <string name="systemui_theme_wallpaper">Automatic (based on wallpaper)</string>
+    <!-- When SystemUI theme is light [CHAR LIMIT=60] -->
+    <string name="systemui_theme_light">White chocolate</string>
+    <!-- When SystemUI theme is dark [CHAR LIMIT=60] -->
+    <string name="systemui_theme_dark">Dark chocolate</string>
 </resources>

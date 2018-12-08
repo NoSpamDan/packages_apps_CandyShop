@@ -14,10 +14,23 @@
     xmlns:settings="http://schemas.android.com/apk/res/com.android.settings"
     android:title="@string/theme_main">
 
+    <PreferenceCategory
+        android:key="system_colors"
+        android:title="@string/system_colors" >
+
+        <org.candy.candyshop.preference.SystemSettingListPreference
+            android:key="system_theme_style"
+            android:title="@string/device_theme"
+            android:entries="@array/system_theme_style_entries"
+            android:entryValues="@array/system_theme_style_values"
+            android:persistent="false" />
+
         <net.margaritov.preference.colorpicker.ColorPickerPreference
             android:key="accent_color"
             android:title="@string/accent_color"
             android:defaultValue="0xffffff"
             android:persistent="false" />
+
+    </PreferenceCategory>
 
 </PreferenceScreen>

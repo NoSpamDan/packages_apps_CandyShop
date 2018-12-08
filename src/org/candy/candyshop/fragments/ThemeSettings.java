@@ -80,15 +80,7 @@ public class ThemeSettings extends SettingsPreferenceFragment
     private Fragment mCurrentFragment = this;
     private OverlayManagerWrapper mOverlayService;
     private PackageManager mPackageManager;
-    private CustomSeekBarPreference mCornerRadius;
-    private CustomSeekBarPreference mContentPadding;
-    private SecureSettingSwitchPreference mRoundedFwvals;
-    private ListPreference mSystemUiThemePref;
-    private CustomSeekBarPreference mQsPanelAlpha;
-    private ColorPickerPreference mQsPanelColor;
-    private SystemSettingSwitchPreference mQsOreoStyle;
-    private int mQsPanelAlphaValue;
-    private boolean mChangeQsPanelAlpha = true;
+
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -99,6 +91,12 @@ public class ThemeSettings extends SettingsPreferenceFragment
             mOverlayService.reloadAndroidAssets(UserHandle.USER_CURRENT);
             mOverlayService.reloadAssets("com.android.settings", UserHandle.USER_CURRENT);
             mOverlayService.reloadAssets("com.android.systemui", UserHandle.USER_CURRENT);
+        } else if (preference == mSystemThemeBase) {
+            String current = getTheme(BASE_THEME_CATEGORY);
+            if (((String) newValue).equals(current))
+                return true;
+            mOverlayService.setEnabledExclusiveInCategory((String) newValue, UserHandle.myUserId());
+            mSystemThemeBase.setSummary(getCurrentTheme(BASE_THEME_CATEGORY));
         }
         return true;
     }
@@ -113,6 +111,7 @@ public class ThemeSettings extends SettingsPreferenceFragment
         mPackageManager = getActivity().getPackageManager();
         mHandler = new Handler();
         setupAccentPref();
+        setupBasePref();
     }
 
     private void setupAccentPref() {
@@ -123,6 +122,26 @@ public class ThemeSettings extends SettingsPreferenceFragment
                 : Color.parseColor("#" + colorVal);
         mThemeColor.setNewPreviewColor(color);
         mThemeColor.setOnPreferenceChangeListener(this);
+    }
+
+    private void setupBasePref() {
+        mSystemThemeBase = (ListPreference) findPreference(KEY_BASE_THEME);
+        mSystemThemeBase.setSummary(getCurrentTheme(BASE_THEME_CATEGORY));
+
+        String[] pkgs = getAvailableThemes(BASE_THEME_CATEGORY);
+        CharSequence[] labels = new CharSequence[pkgs.length];
+        for (int i = 0; i < pkgs.length; i++) {
+            try {
+                labels[i] = mPackageManager.getApplicationInfo(pkgs[i], 0).loadLabel(mPackageManager);
+            } catch (PackageManager.NameNotFoundException e) {
+                labels[i] = pkgs[i];
+            }
+        }
+
+        mSystemThemeBase.setEntries(labels);
+        mSystemThemeBase.setEntryValues(pkgs);
+        mSystemThemeBase.setValue(getTheme(BASE_THEME_CATEGORY));
+        mSystemThemeBase.setOnPreferenceChangeListener(this);
     }
 
     @Override

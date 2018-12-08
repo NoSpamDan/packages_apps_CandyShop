@@ -21,6 +21,13 @@
         android:id="@+id/qs_options_category"
         android:title="@string/qs_options_category_title" />
 
+        <org.candy.candyshop.preference.SystemSettingListPreference
+            android:key="qs_tile_style"
+            android:title="@string/qs_tile_style_title"
+            android:entries="@array/qs_tile_style_selector_entries"
+            android:entryValues="@array/qs_tile_style_selector_values"
+            android:persistent="false" />
+
        <org.candy.candyshop.preference.SystemSettingSwitchPreference
             android:key="qs_tile_title_visibility"
             android:title="@string/qs_tile_title_visibility_title"
