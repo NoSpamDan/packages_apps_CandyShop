@@ -71,6 +71,12 @@
             android:defaultValue="false" />
     </PreferenceCategory>
 
+        <org.candy.candyshop.preference.SystemSettingSwitchPreference
+        android:key="audio_panel_view_position"
+        android:title="@string/volume_panel_on_left_title"
+        android:summary="@string/volume_panel_on_left_summary"
+        android:defaultValue="false" />
+
     <PreferenceCategory
         android:title="@string/audio_panel_view">
 
