@@ -202,8 +202,7 @@ public class Navigation extends SettingsPreferenceFragment implements
         mGestureSystemNavigation = (Preference) findPreference(KEY_GESTURE_SYSTEM);
 
         mLayoutSettings = (Preference) findPreference(KEY_LAYOUT_SETTINGS);
-        if (CandyUtils.isThemeEnabled("com.android.internal.systemui.navbar.twobutton")
-                || CandyUtils.isThemeEnabled("com.android.internal.systemui.navbar.gestural")
+        if (CandyUtils.isThemeEnabled("com.android.internal.systemui.navbar.gestural")
                 || CandyUtils.isThemeEnabled("com.android.internal.systemui.navbar.gestural_nopill")
                 || CandyUtils.isThemeEnabled("com.android.internal.systemui.navbar.gestural_wide_back")
                 || CandyUtils.isThemeEnabled("com.android.internal.systemui.navbar.gestural_extra_wide_back")
@@ -584,14 +583,14 @@ public class Navigation extends SettingsPreferenceFragment implements
             }
         }
 
-        if (Utils.isThemeEnabled("com.android.internal.systemui.navbar.gestural")
-                || Utils.isThemeEnabled("com.android.internal.systemui.navbar.gestural_nopill")
-                || Utils.isThemeEnabled("com.android.internal.systemui.navbar.gestural_wide_back")
-                || Utils.isThemeEnabled("com.android.internal.systemui.navbar.gestural_extra_wide_back")
-                || Utils.isThemeEnabled("com.android.internal.systemui.navbar.gestural_extra_wide_back_nopill")
-                || Utils.isThemeEnabled("com.android.internal.systemui.navbar.gestural_narrow_back")
-                || Utils.isThemeEnabled("com.android.internal.systemui.navbar.gestural_narrow_back_nopill")
-                || Utils.isThemeEnabled("com.android.internal.systemui.navbar.gestural_wide_back_nopill")
+        if (CandyUtils.isThemeEnabled("com.android.internal.systemui.navbar.gestural")
+                || CandyUtils.isThemeEnabled("com.android.internal.systemui.navbar.gestural_nopill")
+                || CandyUtils.isThemeEnabled("com.android.internal.systemui.navbar.gestural_wide_back")
+                || CandyUtils.isThemeEnabled("com.android.internal.systemui.navbar.gestural_extra_wide_back")
+                || CandyUtils.isThemeEnabled("com.android.internal.systemui.navbar.gestural_extra_wide_back_nopill")
+                || CandyUtils.isThemeEnabled("com.android.internal.systemui.navbar.gestural_narrow_back")
+                || CandyUtils.isThemeEnabled("com.android.internal.systemui.navbar.gestural_narrow_back_nopill")
+                || CandyUtils.isThemeEnabled("com.android.internal.systemui.navbar.gestural_wide_back_nopill")
                 && navigationBar) {
             homeCategory.setEnabled(false);
             backCategory.setEnabled(false);
@@ -601,8 +600,8 @@ public class Navigation extends SettingsPreferenceFragment implements
             cameraCategory.setEnabled(false);
         }
 
-        if (Utils.isThemeEnabled("com.android.internal.systemui.navbar.twobutton") && navigationBar) {
-            homeCategory.setEnabled(false);
+        if (CandyUtils.isThemeEnabled("com.android.internal.systemui.navbar.twobutton") && navigationBar) {
+            homeCategory.setEnabled(true);
             backCategory.setEnabled(true);
             menuCategory.setEnabled(false);
             assistCategory.setEnabled(false);
