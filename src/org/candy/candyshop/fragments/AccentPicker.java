@@ -37,6 +37,13 @@ import com.android.internal.statusbar.ThemeAccentUtils;
 
 import com.android.settings.R;
 import com.android.settings.core.instrumentation.InstrumentedDialogFragment;
+import com.android.settings.SettingsPreferenceFragment;
+import com.android.settings.wrapper.OverlayManagerWrapper;
+import com.android.settings.wrapper.OverlayManagerWrapper.OverlayInfo;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class AccentPicker extends InstrumentedDialogFragment implements OnClickListener {
 

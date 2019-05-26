@@ -106,7 +106,7 @@ public class ThemeSettings extends SettingsPreferenceFragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.theme.xml);
+        addPreferencesFromResource(R.xml.theme);
         // OMS and PMS setup
         mOverlayService = ServiceManager.getService(Context.OVERLAY_SERVICE) != null ? new OverlayManagerWrapper()
                 : null;
