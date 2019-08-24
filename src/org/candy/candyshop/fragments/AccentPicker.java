@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 The Dirty Unicorns Project
+ * Copyright (C) 2018 The Potato Open Sauce Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,16 +24,31 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.content.om.IOverlayManager;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.RippleDrawable;
 import android.os.Bundle;
 import android.os.ServiceManager;
+import android.os.UserHandle;
 import android.provider.Settings;
+import android.support.annotation.VisibleForTesting;
+import android.support.v7.preference.Preference;
+import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.GridLayout;
+import android.widget.LinearLayout;
 
 import com.android.internal.logging.nano.MetricsProto;
-import com.android.internal.statusbar.ThemeAccentUtils;
 
 import com.android.settings.R;
 import com.android.settings.core.instrumentation.InstrumentedDialogFragment;
@@ -49,152 +64,90 @@ public class AccentPicker extends InstrumentedDialogFragment implements OnClickL
 
     private static final String TAG_ACCENT_PICKER = "accent_picker";
 
+    private Context mContext;
+    private static Preference mAccentPickerPref;
+    private LinearLayout ll;
+    private OverlayManagerWrapper mOverlayService;
+    private PackageManager mPackageManager;
     private View mView;
-
-    private IOverlayManager mOverlayManager;
-    private int mCurrentUserId;
+    private AlertDialog dialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mOverlayManager = IOverlayManager.Stub.asInterface(
-                ServiceManager.getService(Context.OVERLAY_SERVICE));
-        mCurrentUserId = ActivityManager.getCurrentUser();
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        mView = LayoutInflater.from(getActivity()).inflate(R.layout.accent_picker, null);
+        mContext = getActivity();
+
+        // OMS and PMS setup
+        mOverlayService = ServiceManager.getService(Context.OVERLAY_SERVICE) != null ? new OverlayManagerWrapper()
+                : null;
+        mPackageManager = mContext.getPackageManager();
+
+        // Current accent picker
+        mView = LayoutInflater.from(mContext).inflate(R.layout.accent_picker, null);
+        ll = (LinearLayout) mView.findViewById(R.id.accent_ll);
 
         if (mView != null) {
             initView();
         }
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setView(mView)
-                .setNegativeButton(R.string.cancel, this)
-                .setNeutralButton(R.string.theme_accent_picker_default, this)
-                .setCancelable(false);
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setView(mView).setNegativeButton(R.string.cancel, this).setCancelable(false);
 
-        AlertDialog dialog = builder.create();
+        dialog = builder.create();
         dialog.setCanceledOnTouchOutside(true);
         return dialog;
     }
 
     private void initView() {
+        GridLayout grid = new GridLayout(mContext);
 
-        Button redAccent = mView.findViewById(R.id.redAccent);
-        setAccent("1", redAccent);
+        ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        grid.setLayoutParams(lp);
+        grid.setColumnCount(6);
+        for (String pkgName : getAvailableThemes()) {
+            grid.addView(accentButton(pkgName));
+        }
+        ll.addView(grid);
+    }
 
-        Button pinkAccent = mView.findViewById(R.id.pinkAccent);
-        setAccent("2", pinkAccent);
+    private boolean isTheme(OverlayInfo oi) {
+        if (!OverlayInfo.CATEGORY_THEME.equals(oi.category)) {
+            return false;
+        }
+        try {
+            PackageInfo pi = mPackageManager.getPackageInfo(oi.packageName, 0);
+            return pi != null && !pi.isStaticOverlayPackage();
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
+    }
 
-        Button purpleAccent = mView.findViewById(R.id.purpleAccent);
-        setAccent("3", purpleAccent);
-
-        Button deeppurpleAccent = mView.findViewById(R.id.deeppurpleAccent);
-        setAccent("4", deeppurpleAccent);
-
-        Button indigoAccent = mView.findViewById(R.id.indigoAccent);
-        setAccent("5", indigoAccent);
-
-        Button blueAccent = mView.findViewById(R.id.blueAccent);
-        setAccent("6", blueAccent);
-
-        Button lightblueAccent = mView.findViewById(R.id.lightblueAccent);
-        setAccent("7", lightblueAccent);
-
-        Button cyanAccent = mView.findViewById(R.id.cyanAccent);
-        setAccent("8", cyanAccent);
-
-        Button tealAccent = mView.findViewById(R.id.tealAccent);
-        setAccent("9", tealAccent);
-
-        Button greenAccent = mView.findViewById(R.id.greenAccent);
-        setAccent("10", greenAccent);
-
-        Button lightgreenAccent = mView.findViewById(R.id.lightgreenAccent);
-        setAccent("11", lightgreenAccent);
-
-        Button limeAccent = mView.findViewById(R.id.limeAccent);
-        setAccent("12", limeAccent);
-
-        Button yellowAccent = mView.findViewById(R.id.yellowAccent);
-        setAccent("13", yellowAccent);
-
-        Button amberAccent = mView.findViewById(R.id.amberAccent);
-        setAccent("14", amberAccent);
-
-        Button orangeAccent = mView.findViewById(R.id.orangeAccent);
-        setAccent("15", orangeAccent);
-
-        Button deeporangeAccent = mView.findViewById(R.id.deeporangeAccent);
-        setAccent("16", deeporangeAccent);
-
-        Button brownAccent = mView.findViewById(R.id.brownAccent);
-        setAccent("17", brownAccent);
-
-        Button greyAccent = mView.findViewById(R.id.greyAccent);
-        setAccent("18", greyAccent);
-
-        Button bluegreyAccent = mView.findViewById(R.id.bluegreyAccent);
-        setAccent("19", bluegreyAccent);
-
-        Button blackAccent = mView.findViewById(R.id.blackAccent);
-        // Change the accent picker button depending on whether or not the dark theme is applied
-        blackAccent.setBackgroundColor(getResources().getColor(
-                ThemeAccentUtils.isUsingDarkTheme(mOverlayManager, mCurrentUserId) ||
-                ThemeAccentUtils.isUsingBlackTheme(mOverlayManager, mCurrentUserId) ? R.color.accent_picker_white_accent : R.color.accent_picker_dark_accent));
-        blackAccent.setBackgroundTintList(getResources().getColorStateList(
-                ThemeAccentUtils.isUsingDarkTheme(mOverlayManager, mCurrentUserId) ||
-                ThemeAccentUtils.isUsingBlackTheme(mOverlayManager, mCurrentUserId) ? R.color.accent_picker_white_accent : R.color.accent_picker_dark_accent));
-        setAccent("20", blackAccent);
-
-        Button userAccentOne = mView.findViewById(R.id.userAccentOne);
-        setAccent("22", userAccentOne);
-
-        Button userAccentTwo = mView.findViewById(R.id.userAccentTwo);
-        setAccent("23", userAccentTwo);
-
-        Button userAccentThree = mView.findViewById(R.id.userAccentThree);
-        setAccent("24", userAccentThree);
-
-        Button userAccentFour = mView.findViewById(R.id.userAccentFour);
-        setAccent("25", userAccentFour);
-
-        Button userAccentFive = mView.findViewById(R.id.userAccentFive);
-        setAccent("26", userAccentFive);
-
-        Button userAccentSix = mView.findViewById(R.id.userAccentSix);
-        setAccent("27", userAccentSix);
-
-        Button userAccentSeven = mView.findViewById(R.id.userAccentSeven);
-        setAccent("28", userAccentSeven);
-
-        Button userAccentEight = mView.findViewById(R.id.userAccentEight);
-        setAccent("29", userAccentEight);
-
-        Button userAccentNine = mView.findViewById(R.id.userAccentNine);
-        setAccent("30", userAccentNine);
+    @VisibleForTesting
+    String[] getAvailableThemes() {
+        List<OverlayInfo> infos = mOverlayService.getOverlayInfosForTarget("android", UserHandle.myUserId());
+        List<String> pkgs = new ArrayList<>(infos.size());
+        for (int i = 0, size = infos.size(); i < size; i++) {
+            if (isTheme(infos.get(i))) {
+                pkgs.add(infos.get(i).packageName);
+            }
+        }
+        return pkgs.toArray(new String[pkgs.size()]);
     }
 
     @Override
     public void onClick(DialogInterface dialog, int which) {
         ContentResolver resolver = getActivity().getContentResolver();
-
-        if (which == AlertDialog.BUTTON_NEGATIVE) {
-            dismiss();
-        }
-        if (which == AlertDialog.BUTTON_NEUTRAL) {
-            Settings.System.putIntForUser(resolver,
-                    Settings.System.ACCENT_PICKER, 0, mCurrentUserId);
-            dismiss();
-        }
     }
 
-    public static void show(Fragment parent) {
-        if (!parent.isAdded()) return;
-
+    public static void show(Fragment parent, Preference preference) {
+        if (!parent.isAdded())
+            return;
+        mAccentPickerPref = preference;
         final AccentPicker dialog = new AccentPicker();
         dialog.setTargetFragment(parent, 0);
         dialog.show(parent.getFragmentManager(), TAG_ACCENT_PICKER);
@@ -202,20 +155,72 @@ public class AccentPicker extends InstrumentedDialogFragment implements OnClickL
 
     @Override
     public int getMetricsCategory() {
-        return MetricsProto.MetricsEvent.CANDYSHOP;
+        return MetricsProto.MetricsEvent.FRIES;
     }
 
-    private void setAccent(final String accent, final Button buttonAccent) {
-        final ContentResolver resolver = getActivity().getContentResolver();
-        if (buttonAccent != null) {
-            buttonAccent.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Settings.System.putIntForUser(resolver,
-                            Settings.System.ACCENT_PICKER, Integer.parseInt(accent), mCurrentUserId);
-                    dismiss();
+    private Button accentButton(String pkg) {
+        int bg = getColorFromPackage(pkg);
+        int dpVal = (int) (50 * mContext.getResources().getDisplayMetrics().density + 0.5f);
+        int margin = dpVal / 10;
+
+        // Create layout params for our buttons
+        GridLayout.LayoutParams lParams = new GridLayout.LayoutParams();
+        lParams.width = 0;
+        lParams.setMargins(margin, margin, margin, margin);
+        lParams.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f);
+        lParams.setGravity(Gravity.FILL_HORIZONTAL);
+
+        GradientDrawable shape = new GradientDrawable();
+        shape.setCornerRadius(dpVal);
+        shape.setColor(bg);
+
+        CustomButton button = new CustomButton(mContext);
+        button.setBackground(new RippleDrawable(
+                new ColorStateList(new int[][] { new int[] {} }, new int[] { Color.WHITE }), shape, null));
+        button.setGravity(Gravity.CENTER);
+        button.setLayoutParams(lParams);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                CharSequence label = null;
+                try {
+                    label = mPackageManager.getApplicationInfo(pkg, 0).loadLabel(mPackageManager);
+                } catch (NameNotFoundException e) {
+                    label = pkg;
                 }
-            });
+                mAccentPickerPref.setSummary(label);
+                mOverlayService.setEnabledExclusiveInCategory(pkg, UserHandle.myUserId());
+                dialog.dismiss();
+            }
+        });
+        return button;
+    }
+
+    private int getColorFromPackage(String pkg) {
+        String colResName = "accent_device_default_dark";
+        Resources res = null;
+        try {
+            res = mContext.getPackageManager().getResourcesForApplication(pkg);
+        } catch (NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        int resId = res.getIdentifier(pkg + ":color/" + colResName, null, null);
+        return res.getColor(resId);
+    }
+
+    public class CustomButton extends Button {
+
+        public CustomButton(Context context) {
+            super(context);
+        }
+
+        public CustomButton(Context context, AttributeSet attrs) {
+            super(context, attrs);
+        }
+
+        @Override
+        protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+            int width = MeasureSpec.getSize(widthMeasureSpec);
+            setMeasuredDimension(width, width);
         }
     }
 }
