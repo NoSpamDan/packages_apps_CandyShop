@@ -156,4 +156,15 @@
             android:entryValues="@array/headset_connect_player_values" />
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:key="system_colors"
+        android:title="@string/system_colors" >
+
+        <Preference
+            android:key="theme_settings"
+            android:fragment="org.candy.candyshop.fragments.ThemeSettings"
+            android:title="@string/theme_title"
+            android:summary="@string/theme_summary" />
+    </PreferenceCategory>
+
 </PreferenceScreen>
