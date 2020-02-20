@@ -40,6 +40,7 @@ import androidx.preference.SwitchPreference;
 import androidx.preference.PreferenceScreen;
 import androidx.preference.Preference.OnPreferenceChangeListener;
 
+import com.android.internal.util.candy.CandyUtils;
 import com.android.internal.logging.MetricsLogger;
 import com.android.internal.logging.nano.MetricsProto;
 import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
@@ -65,6 +66,7 @@ public class Navigation extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener, Indexable {
 
     private static final String KEY_NAVIGATION_BAR_ENABLED = "force_show_navbar";
+    private static final String KEY_LAYOUT_SETTINGS = "layout_settings";
 
     private SwitchPreference mNavigationBar;
 
@@ -86,11 +88,11 @@ public class Navigation extends SettingsPreferenceFragment implements
                 Settings.System.FORCE_SHOW_NAVBAR,
                 defaultToNavigationBar ? 1 : 0) == 1));
         mNavigationBar.setOnPreferenceChangeListener(this);
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
+        Preference mLayoutSettings = (Preference) findPreference(KEY_LAYOUT_SETTINGS);
+        if (!CandyUtils.isThemeEnabled("com.android.internal.systemui.navbar.threebutton")) {
+            prefSet.removePreference(mLayoutSettings);
+        }
     }
 
     @Override
