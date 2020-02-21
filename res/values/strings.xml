@@ -396,4 +396,13 @@
     <!-- HW keys -->
     <string name="hw_keys_swap_title">Swap hardware buttons</string>
     <string name="hw_keys_swap_summary">Swap the order of recents and back buttons</string>
+    <string name="home_key_title">Home button</string>
+    <string name="back_key_title">Back button</string>
+    <string name="menu_key_title">Menu button</string>
+    <string name="assist_key_title">Assist button</string>
+    <string name="app_switch_key_title">Recents button</string>
+    <string name="camera_key_title">Camera button</string>
+    <string name="short_press_title">Short press action</string>
+    <string name="long_press_title">Long press action</string>
+    <string name="double_tap_title">Double tap action</string>
 </resources>
