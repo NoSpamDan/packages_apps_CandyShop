@@ -406,6 +406,63 @@
     <string name="long_press_title">Long press action</string>
     <string name="double_tap_title">Double tap action</string>
 
+    <!-- Button backlight -->
+    <string name="button_backlight_title">Backlight</string>
+    <string name="button_backlight_summary">Configure backlight for capacitive keys</string>
+    <string name="button_backlight_on_touch_only_title">Button touch</string>
+    <string name="button_backlight_on_touch_only_summary">Enable backlight with timeout only on button touch</string>
+    <string name="button_timeout_title">Backlight timeout (seconds)</string>
+    <string name="button_link_brightness">Link to screen brightness</string>
+    <string name="button_link_brightness_summary">Use screen brightness level</string>
+    <string name="button_manual_brightness">Brightness level</string>
+    <string name="button_backlight_enable_title">Allow backlight</string>
+
+    <!--Owlsnest buttons-->
+    <string name="buttons_title">Hardware buttons</string>
+    <string name="buttons_summary">Tweak the actions of your devices physical buttons</string>
+    <string name="power_button_category">Power</string>
+    <string name="volume_category">Volume</string>
+
+    <!-- Power menu -->
+    <string name="powermenu_reboot_title">Restart</string>
+    <string name="powermenu_advanced_restart_title">Advanced restart</string>
+    <string name="powermenu_advanced_restart_summary">Enables the advanced restart menu for other restarting options</string>
+    <string name="powermenu_lockdown_title">Lockdown</string>
+    <string name="powermenu_screenshot_title">Screenshot</string>
+    <string name="powermenu_screenrecord_title">Screenrecord</string>
+
+    <!-- Screen Off animation -->
+    <string name="screen_off_animation_title">Screen off animation</string>
+    <string name="screen_off_animation_default">Default</string>
+    <string name="screen_off_animation_crt">CRT</string>
+    <string name="screen_off_animation_scale">Scale</string>
+
+
+    <!--Owlsnest recentscreen-->
+    <string name="recent_title">Recents</string>
+    <string name="recent_summary">Configure which recents style and options</string>
+
+
+    <!--Owlsnest Gestures-->
+    <string name="gesture_category">Gesture</string>
+    <string name="gesture_summary">Gesture based options/actions</string>
+    <string name="pixel_gesture_title">Pixel Gestures</string>
+    <string name="pixel_gesture_summary">Features specific to Pixel like Active Edge</string>
+    <string name="double_tap_options">Double Tap to Sleep</string>
+    <string name="aosp_gesture_title">AOSP Gestures</string>
+    <string name="aware_settings_title">Motion Sense</string>
+    <string name="aware_settings_summary">Configure Motion Sense options</string>
+
+    <!-- Active edge -->
+    <string name="active_edge_title">Active Edge</string>
+    <string name="active_edge_summary">Configure Active Edge options</string>
+    <string name="active_edge_short_actions_title">Short squeeze action</string>
+    <string name="active_edge_long_actions_title">Long squeeze action</string>
+    <string name="active_edge_sensitivity_title">Squeeze sensitivity</string>
+    <string name="active_edge_wake_title">Allow when screen is off</string>
+    <string name="active_edge_wake_summary">Trigger an action when the screen is off</string>
+    <string name="active_edge_footer_info">Not all squeeze actions within Active Edge have the capability to activate the display.\n\nIf you want to choose a specific app activity for the action, long press on any app in the app picker.</string>
+
     <!-- Custom actions -->
     <string name="action_nothing">No action</string>
     <string name="action_menu">Menu</string>
