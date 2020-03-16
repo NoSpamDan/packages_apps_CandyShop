@@ -260,4 +260,9 @@
     <string name="status_bar_system_icons_summary">Control which status bar icons are shown</string>
     <string name="navigation_tuner_title">Navigation Bar options</string>
 
+     <!-- Lock screen cover art -->
+    <string name="lockscreen_media_category">Music</string>
+    <string name="media_art_title">Media artwork</string>
+    <string name="media_art_summary">Show media cover art as the lockscreen background</string>
+
 </resources>
