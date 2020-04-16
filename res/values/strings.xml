@@ -253,4 +253,11 @@
     <string name="volume_key_cursor_control_on">Volume up/down moves cursor left/right</string>
     <string name="volume_key_cursor_control_on_reverse">Volume up/down moves cursor right/left</string>
 
+    <!-- Tuner stuff -->
+    <string name="status_bar_icons_title">Statusbar icons</string>
+    <string name="lockscreen_tuner_title">Lockscreen shortcuts</string>
+    <string name="status_bar_system_icons_title">Statusbar system icons</string>
+    <string name="status_bar_system_icons_summary">Control which status bar icons are shown</string>
+    <string name="navigation_tuner_title">Navigation Bar options</string>
+
 </resources>
