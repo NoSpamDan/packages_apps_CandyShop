@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--  Copyright (C) 2015-2020 Android Open Source Illusion Project
+<!--  Copyright (C) 2020 CandyRoms
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@
             android:targetClass="com.android.systemui.tuner.NavBarActivity" />
     </Preference>
 
-   <com.aosip.support.preference.SystemSettingSwitchPreference
+   <org.candy.candyshop.preference.SystemSettingSwitchPreference
         android:key="navigation_bar_menu_arrow_keys"
         android:title="@string/navigation_bar_menu_arrow_keys_title"
         android:summary="@string/navigation_bar_menu_arrow_keys_summary"

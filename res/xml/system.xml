@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--  Copyright (C) 2014-2016 The Dirty Unicorns Project
-      Copyright (C) 2018 CandyRoms
+      Copyright (C) 2018-2020 CandyRoms
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation, either version 3 of the License, or
@@ -76,11 +76,10 @@
             android:title="@string/volume_key_cursor_control_title" />
 
         <Preference
-            android:title="@string/navigation_tuner_title" >
-            <intent android:action="android.intent.action.MAIN"
-                android:targetPackage="com.android.systemui"
-                android:targetClass="com.android.systemui.tuner.NavBarActivity" />
-        </Preference>
+            android:key="navigation"
+            android:title="@string/navigation_options_title"
+            android:summary="@string/navigation_options_summary"
+            android:fragment="org.candy.candyshop.navigation.Navigation" />
 
     </PreferenceCategory>
 

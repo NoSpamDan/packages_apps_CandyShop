@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2014-2016 The Dirty Unicorns Project
+ * Copyright (C) 2020 CandyRoms
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +15,7 @@
  * limitations under the License.
  */
 
-package org.candy.candyshop.tabs;
+package org.candy.candyshop.navigation;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -60,31 +61,31 @@ import java.util.Map;
 import org.candy.candyshop.preference.GlobalSettingSwitchPreference;
 
 @SearchIndexable
-public class System extends SettingsPreferenceFragment implements
+public class Navigation extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener, Indexable {
 
-    private static final String DEVICE_CATEGORY = "device_extras_category";
-    private static final String MISC_CATEGORY = "system_category";
-	private static final String TAG = "System";
-    private static final String NOTIFICATIONS = "notifications_category";
-    private static final String CHARGING_LIGHT = "charging_light";
+    private static final String KEY_NAVIGATION_BAR_ENABLED = "force_show_navbar";
 
-    private PreferenceCategory mNotifications = null;
-    private Preference mChargingLight = null;
+    private SwitchPreference mNavigationBar;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        addPreferencesFromResource(R.xml.system);
+        addPreferencesFromResource(R.xml.navigation);
+        final ContentResolver resolver = getActivity().getContentResolver();
 
-        // This should remove the batter light preference if config_intrusiveBatteryLed is not set
-        mNotifications = (PreferenceCategory)findPreference(NOTIFICATIONS);
-        mChargingLight = (Preference) findPreference(CHARGING_LIGHT);
+        final boolean defaultToNavigationBar = getResources().getBoolean(
+                com.android.internal.R.bool.config_showNavigationBar);
+        final boolean navigationBarEnabled = Settings.System.getIntForUser(
+                resolver, Settings.System.FORCE_SHOW_NAVBAR,
+                defaultToNavigationBar ? 1 : 0, UserHandle.USER_CURRENT) != 0;
 
-        if (!(getResources().getBoolean(com.android.internal.R.bool.config_intrusiveNotificationLed))) {
-            mNotifications.removePreference(mChargingLight);
-        }
+        mNavigationBar = (SwitchPreference) findPreference(KEY_NAVIGATION_BAR_ENABLED);
+        mNavigationBar.setChecked((Settings.System.getInt(getContentResolver(),
+                Settings.System.FORCE_SHOW_NAVBAR,
+                defaultToNavigationBar ? 1 : 0) == 1));
+        mNavigationBar.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -98,6 +99,12 @@ public class System extends SettingsPreferenceFragment implements
     }
 
     public boolean onPreferenceChange(Preference preference, Object objValue) {
+        if (preference == mNavigationBar) {
+            boolean value = (Boolean) objValue;
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.FORCE_SHOW_NAVBAR, value ? 1 : 0);
+            return true;
+        }
         return false;
     }
 
