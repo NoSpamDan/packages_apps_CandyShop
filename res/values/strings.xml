@@ -393,7 +393,16 @@
     <string name="navigation_bar_layout_title">Layout</string>
     <string name="navigation_bar_layout_summary">Customize the layout of the navigation bar</string>
 
-    <!-- HW keys -->
+    <!-- NavigationBar Gestural Mode Tweaks -->
+    <string name="navbar_gesture_mode_category_title">Gesture mode tweaks</string>
+    <string name="navbar_gesture_mode_category_key">gesture_mode_tweaks</string>
+    <string name="navbar_gesture_pill_toggle_title">Full screen gestures</string>
+    <string name="navbar_gesture_pill_toggle_summary">This will hide both the navigation bar and the pill for a seamless fullscreen gesture experience.</string>
+    <string name="navbar_gesture_pill_toggle_summary_disabled">This option is only available for gesture navigation!</string>
+
+    <!-- Navigation -->
+    <string name="navigation_bar_title">On-screen navigation bar</string>
+    <string name="navigation_bar_summary">Enable on-screen navigation keys</string>
     <string name="hw_keys_swap_title">Swap hardware buttons</string>
     <string name="hw_keys_swap_summary">Swap the order of recents and back buttons</string>
     <string name="home_key_title">Home button</string>
