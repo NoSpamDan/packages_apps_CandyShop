@@ -5,7 +5,7 @@ import android.provider.Settings;
 import android.view.View;
 import android.widget.ListView;
 
-import org.candy.candyshop.preference.AppPicker;
+import org.candy.support.preferences.AppPicker;
 
 public class BackLongPress extends AppPicker {
 

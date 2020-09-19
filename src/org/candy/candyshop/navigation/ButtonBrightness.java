@@ -37,7 +37,7 @@ import com.android.settings.Utils;
 
 import com.android.internal.logging.nano.MetricsProto;
 
-import org.candy.candyshop.preference.CustomSeekBarPreference;
+import org.candy.support.preferences.CustomSeekBarPreference;
 
 public class ButtonBrightness extends SettingsPreferenceFragment implements Preference.OnPreferenceChangeListener {
 
