@@ -41,6 +41,7 @@ import com.android.internal.logging.nano.MetricsProto;
 import com.android.settings.Utils;
 
 import org.candy.candyshop.preference.CustomSeekBarPreference;
+import org.candy.support.preferences.CustomPreferenceCategory;
 
 public class QuickSettings extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {

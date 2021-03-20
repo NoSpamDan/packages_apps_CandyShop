@@ -34,6 +34,8 @@ import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.internal.logging.nano.MetricsProto;
 
+import org.candy.support.preferences.CustomPreferenceCategory;
+
 public class Lockscreen extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
     private static final String MISC_CATEGORY = "lockscreen_category";

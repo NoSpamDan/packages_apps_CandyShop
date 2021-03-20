@@ -35,6 +35,8 @@ import com.android.settings.SettingsPreferenceFragment;
 import com.android.internal.logging.nano.MetricsProto;
 import com.android.settings.Utils;
 
+import org.candy.support.preferences.CustomPreferenceCategory;
+
 public class StockRoom extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
     private static final String MISC_CATEGORY = "stockroom_category";
@@ -68,4 +70,3 @@ public class StockRoom extends SettingsPreferenceFragment implements
     }
 
 }
-

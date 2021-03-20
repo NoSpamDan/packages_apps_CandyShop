@@ -64,6 +64,7 @@
     <string name="miscellaneous_category_title">Miscellaneous</string>
     <string name="clock_options_title">Clock &amp; date</string>
     <string name="power_save_category">Power saving</string>
+    <string name="qs_options_category_title">Quicksettings options</string>
 
     <!-- Fragments -->
     <string name="notification_settings_title">Notifications Settings</string>

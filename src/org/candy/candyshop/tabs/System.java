@@ -35,6 +35,8 @@ import com.android.internal.logging.nano.MetricsProto;
 import android.provider.Settings;
 import com.android.settings.Utils;
 
+import org.candy.support.preferences.CustomPreferenceCategory;
+
 public class System extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
 
@@ -70,4 +72,3 @@ public class System extends SettingsPreferenceFragment implements
         return MetricsProto.MetricsEvent.CANDYSHOP;
     }
 }
-

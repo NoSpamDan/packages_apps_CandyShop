@@ -23,7 +23,7 @@
         android:layout="@layout/tab_header_preference_category"
         android:title="@string/lockscreen_aisle_header" />
 
-     <PreferenceCategory
+     <org.candy.support.preferences.CustomPreferenceCategory
         android:key="media_options_category"
         android:title="@string/media_options_category_title">
 
@@ -39,10 +39,10 @@
                 android:summary="@string/pulse_settings_summary"
                 android:fragment="org.candy.candyshop.fragments.PulseSettings"/>
 
-       </PreferenceCategory>
+       </org.candy.support.preferences.CustomPreferenceCategory>
 
 
-    <PreferenceCategory
+    <org.candy.support.preferences.CustomPreferenceCategory
         android:key="lockscreen_other_category"
         android:title="@string/lockscreen_other_category_title" >
 
@@ -52,22 +52,22 @@
             android:summary="@string/lockscreen_battery_info_summary"
             android:defaultValue="true" />
 
-    </PreferenceCategory>
+    </org.candy.support.preferences.CustomPreferenceCategory>
 
-  <!--<PreferenceCategory
+  <!--<org.candy.support.preferences.CustomPreferenceCategory
         android:key="sleep_controls_category"
         android:title="@string/sleep_controls_category_title" >
-    </PreferenceCategory>-->
+    </org.candy.support.preferences.CustomPreferenceCategory>-->
 
-    <!--<PreferenceCategory
+    <!--<org.candy.support.preferences.CustomPreferenceCategory
         android:id="@+id/lockscreen_security_category"
         android:key="lockscreen_security_category"
         android:title="@string/lockscreen_security_category_title" >
-    </PreferenceCategory>-->
+    </org.candy.support.preferences.CustomPreferenceCategory>-->
 
-    <!--<PreferenceCategory
+    <!--<org.candy.support.preferences.CustomPreferenceCategory
         android:key="lockscreen_clock_category"
         android:title="@string/lockscreen_clock_category_title" >
-    </PreferenceCategory>-->
+    </org.candy.support.preferences.CustomPreferenceCategory>-->
 
 </PreferenceScreen>
